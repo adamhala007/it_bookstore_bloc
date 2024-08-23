@@ -9,7 +9,7 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(
-      supportedLocales: const [slovakLocal],
+      supportedLocales: const [englishLocal],
       path: assetsPathLocalisations,
       child: ItBookstoreApp(),
     ),
