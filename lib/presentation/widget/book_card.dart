@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../domain/model/book.dart';
+import '../../data/model/book.dart';
 import '../resources/color_manager.dart';
 import '../resources/strings_manager.dart';
 import '../resources/styles_manager.dart';
