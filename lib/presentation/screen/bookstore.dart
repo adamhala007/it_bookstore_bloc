@@ -9,6 +9,7 @@ import 'package:it_bookstore_bloc/domain/bookstore_bloc/bookstore_state.dart';
 import 'package:it_bookstore_bloc/presentation/resources/strings_manager.dart';
 import 'package:it_bookstore_bloc/presentation/resources/values_manager.dart';
 import 'package:it_bookstore_bloc/presentation/widget/book_card.dart';
+import 'package:number_pagination/number_pagination.dart';
 
 import '../resources/color_manager.dart';
 import '../resources/font_manager.dart';
@@ -24,6 +25,7 @@ class BookstoreView extends StatefulWidget {
 class _BookstoreViewState extends State<BookstoreView> {
   TextEditingController searchController = TextEditingController();
   BookstoreBloc bookstoreBloc = instance<BookstoreBloc>();
+  int _currentPage = 1;
 
   @override
   void initState() {
@@ -86,7 +88,9 @@ class _BookstoreViewState extends State<BookstoreView> {
             decoration: InputDecoration(
               hintText: AppStrings.searchBy.tr(),
               suffixIcon: InkWell(
-                onTap: () {},
+                onTap: () {
+                  bookstoreBloc.add(FetchBookstore(searchController.text, 1));
+                },
                 child: const Icon(
                   Icons.search,
                   color: ColorManager.orange,
@@ -104,7 +108,41 @@ class _BookstoreViewState extends State<BookstoreView> {
                   itemBuilder: (context, index) {
                     return BookCard(book: bookstore.books[index]);
                   })),
-          const Text('Paginator placeholder'),
+          Container(
+            color: ColorManager.white,
+            child: NumberPagination(
+              buttonRadius: 5,
+              buttonElevation: 0,
+              selectedButtonColor: Colors.transparent,
+              unSelectedButtonColor: Colors.transparent,
+              selectedNumberColor: Colors.orange,
+              controlButtonColor: Colors.transparent,
+              firstPageIcon: const Icon(
+                Icons.first_page,
+                color: ColorManager.black,
+              ),
+              lastPageIcon: const Icon(
+                Icons.last_page,
+                color: ColorManager.black,
+              ),
+              nextPageIcon: const Icon(
+                Icons.arrow_right,
+                color: ColorManager.black,
+              ),
+              previousPageIcon: const Icon(
+                Icons.arrow_left,
+                color: ColorManager.black,
+              ),
+              onPageChanged: (int pageNumber) {
+                _currentPage = pageNumber;
+                bookstoreBloc
+                    .add(FetchBookstore(searchController.text, _currentPage));
+              },
+              visiblePagesCount: searchController.text == '' ? 1 : 3,
+              totalPages: bookstore.maxPage ?? 1,
+              currentPage: _currentPage,
+            ),
+          ),
         ],
       ),
     );

@@ -20,8 +20,11 @@ class AppRouter {
           builder: (_) => const BookstoreView(),
         );
       case Routes.bookDetailRoute:
+        initBookDetailModule();
         return MaterialPageRoute(
-          builder: (_) => const BookDetailView(),
+          builder: (_) => BookDetailView(
+            routeSettings: settings,
+          ),
         );
       default:
         initBookStoreModule();

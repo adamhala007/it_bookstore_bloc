@@ -47,6 +47,10 @@ dependencies:
   bloc: ^8.1.4
   get_it: ^7.6.7
   pretty_dio_logger: ^1.4.0
+  #number_paginator: ^0.4.1
+  custom_rating_bar: ^3.0.0
+  url_launcher: ^6.3.0
+  number_pagination: ^1.1.4
 
 dev_dependencies:
   flutter_test:
