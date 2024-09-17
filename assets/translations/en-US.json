@@ -1,10 +1,12 @@
 {
   "buy": "Buy",
   "description": "Description",
+  "error": "Error",
   "it_bookstore": "IT Bookstore",
   "pages": "Pages",
   "preview": "Preview",
   "publisher": "Publisher",
   "search_by": "Search by name, author, ISBN, ...",
+  "sth_wrong": "Something went wrong",
   "year": "Year"
 }

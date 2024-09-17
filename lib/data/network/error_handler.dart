@@ -3,6 +3,5 @@ class ResponseCode {
 }
 
 class ResponseMessage {
-  static const String loadDataFailed =
-      'Unable to load data.'; // success with data
+  static const String loadDataFailed = 'Unable to load data.';
 }

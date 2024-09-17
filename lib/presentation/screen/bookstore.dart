@@ -43,7 +43,7 @@ class _BookstoreViewState extends State<BookstoreView> {
             if (state is BookstoreFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text("Something went wrong"),
+                  content: Text(AppStrings.sthWrong.tr()),
                 ),
               );
             }
@@ -56,8 +56,8 @@ class _BookstoreViewState extends State<BookstoreView> {
             } else if (state is BookstoreIsLoaded) {
               return buildBookstore(state.getBookstore);
             } else {
-              return const Center(
-                child: Text('Error'),
+              return Center(
+                child: Text(AppStrings.error.tr()),
               );
             }
           },

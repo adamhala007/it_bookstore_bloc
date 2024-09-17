@@ -16,7 +16,7 @@ import '../resources/styles_manager.dart';
 import '../resources/values_manager.dart';
 
 class BookDetailView extends StatefulWidget {
-  BookDetailView({RouteSettings? routeSettings}) {
+  BookDetailView({super.key, RouteSettings? routeSettings}) {
     if (routeSettings != null) {
       isbn13 = routeSettings.arguments as String?;
     }
@@ -46,7 +46,9 @@ class _BookDetailViewState extends State<BookDetailView> {
             if (state is BookDetailFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text("Something went wrong"),
+                  content: Text(
+                    AppStrings.sthWrong.tr(),
+                  ),
                 ),
               );
             }
@@ -59,8 +61,8 @@ class _BookDetailViewState extends State<BookDetailView> {
             } else if (state is BookDetailIsLoaded) {
               return buildBookDetail(state.getBookDetail);
             } else {
-              return const Center(
-                child: Text('Error'),
+              return Center(
+                child: Text(AppStrings.error.tr()),
               );
             }
           },
@@ -92,7 +94,7 @@ class _BookDetailViewState extends State<BookDetailView> {
                               Image.network(book.image),
                               RatingBar.readOnly(
                                 alignment: Alignment.center,
-                                size: 15,
+                                size: AppSize.s15,
                                 filledIcon: Icons.star,
                                 emptyIcon: Icons.star_border,
                                 initialRating:
@@ -123,7 +125,7 @@ class _BookDetailViewState extends State<BookDetailView> {
                                             color: Colors.black,
                                             fontSize: FontSize.s14),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: AppSize.s8,
                                       ),
                                       Text(
@@ -146,8 +148,8 @@ class _BookDetailViewState extends State<BookDetailView> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: AppPadding.p16),
                   child: Divider(),
                 ),
                 Text(
@@ -155,7 +157,7 @@ class _BookDetailViewState extends State<BookDetailView> {
                   style: getSemiBoldStyle(
                       color: ColorManager.black, fontSize: FontSize.s14),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: AppSize.s8,
                 ),
                 Text(
@@ -165,8 +167,8 @@ class _BookDetailViewState extends State<BookDetailView> {
                     fontSize: FontSize.s13,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: AppPadding.p16),
                   child: Divider(),
                 ),
                 Row(
@@ -189,7 +191,7 @@ class _BookDetailViewState extends State<BookDetailView> {
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: AppPadding.p8,
                 ),
                 Row(
@@ -212,7 +214,7 @@ class _BookDetailViewState extends State<BookDetailView> {
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: AppPadding.p8,
                 ),
                 Row(
@@ -228,14 +230,14 @@ class _BookDetailViewState extends State<BookDetailView> {
                     Expanded(
                       flex: 2,
                       child: Text(
-                        '${book.year}',
+                        book.year,
                         style: getRegularStyle(
                             color: ColorManager.black, fontSize: FontSize.s13),
                       ),
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: AppPadding.p8,
                 ),
                 Row(
@@ -258,49 +260,47 @@ class _BookDetailViewState extends State<BookDetailView> {
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: AppSize.s16,
                 ),
-                Divider(),
-                Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppPadding.p8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              '${book.price}',
-                              style: getBoldStyle(
-                                color: ColorManager.black,
+                const Divider(),
+                Padding(
+                  padding: const EdgeInsets.all(AppPadding.p8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            book.price,
+                            style: getBoldStyle(
+                              color: ColorManager.black,
+                              fontSize: FontSize.s16,
+                            ),
+                          ),
+                          OutlinedButton.icon(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.shopping_cart,
+                              color: ColorManager.orange,
+                              size: AppSize.s20,
+                            ),
+                            label: Text(
+                              AppStrings.buy.tr(),
+                              style: getMediumStyle(
+                                color: ColorManager.orange,
                                 fontSize: FontSize.s16,
                               ),
                             ),
-                            OutlinedButton.icon(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.shopping_cart,
-                                color: ColorManager.orange,
-                                size: AppSize.s20,
-                              ),
-                              label: Text(
-                                AppStrings.buy.tr(),
-                                style: getMediumStyle(
-                                  color: ColorManager.orange,
-                                  fontSize: FontSize.s16,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                Divider(),
-                SizedBox(
+                const Divider(),
+                const SizedBox(
                   height: AppSize.s16,
                 ),
                 _getPdfSection(book.pdf),
@@ -347,12 +347,10 @@ class _BookDetailViewState extends State<BookDetailView> {
       );
     }
 
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: widgets,
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: widgets,
     );
   }
 }
